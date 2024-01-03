@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Scripting.APIUpdating;
 using Random = UnityEngine.Random;
 
 // force the requirement of a component of type : Rigidbody
@@ -21,6 +22,11 @@ public class Dice : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        transform.rotation = Random.rotation;
     }
 
     private void Update()
@@ -57,16 +63,12 @@ public class Dice : MonoBehaviour
         return topFace + 1;
     }
 
-    public void RollDice(float throwForce, float rollForce, int i)
+    public void RollDice(float throwForce, float rollForce, int i, Vector3 throwDirection)
     {
         _diceIndex = i;
-        var randomVariance = Random.Range(0.25f, 1f);
-        rb.AddForce(transform.forward * (throwForce * randomVariance), ForceMode.Impulse);
-        var randX = Random.Range(0f, 1f);
-        var randY = Random.Range(0f, 1f);
-        var randZ = Random.Range(0f, 1f);
-
-        rb.AddTorque(new Vector3(randX, randY, randZ) * (rollForce + randomVariance), ForceMode.Impulse);
+        float randomVariance = Random.Range(0.25f, 1f);
+        rb.AddForce(throwDirection * (throwForce * randomVariance), ForceMode.Impulse);
+        
 
         DelayResult();
     }

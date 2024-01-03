@@ -10,8 +10,14 @@ public class DiceThrower : MonoBehaviour
     public int amountOfDice = 2;
     public float throwForce = 10f;
     public float rollForce = 10f;
+    public Vector3 throwDirection;
 
     private List<GameObject> _spawnedDice = new List<GameObject>();
+
+    public void Awake()
+    {
+        throwDirection = transform.forward;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) RollDice();
@@ -30,7 +36,7 @@ public class DiceThrower : MonoBehaviour
         {
             Dice dice = Instantiate(diceToThrow, transform.position, transform.rotation);
             _spawnedDice.Add(dice.gameObject);
-            dice.RollDice(throwForce, rollForce, i);
+            dice.RollDice(throwForce, rollForce, i, throwDirection);
             await Task.Yield();
         }
     }
