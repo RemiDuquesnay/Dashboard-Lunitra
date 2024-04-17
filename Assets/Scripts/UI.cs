@@ -48,7 +48,7 @@ public class UI : MonoBehaviour
 
     }
 
-    internal void SetDiceValue(int diceIndex, int v)
+    public void SetDiceValue(int diceIndex, int v)
     {
         if (diceIndex == 0)
         {

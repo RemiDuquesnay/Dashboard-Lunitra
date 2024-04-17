@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,8 +17,8 @@ public class Dice : MonoBehaviour
 
     private int _diceIndex = -1;
 
-    private bool _hasStoppedRolling;
-    private bool _delayFinished;
+    private bool _hasStoppedRolling = false;
+    private bool _delayFinished = false;
 
     public static UnityAction<int, int> OnDiceResult;
 
@@ -60,7 +61,6 @@ public class Dice : MonoBehaviour
             }
         }
 
-
         ui.SetDiceValue(_diceIndex, topFace + 1);
 
         OnDiceResult?.Invoke(_diceIndex, topFace + 1);
@@ -73,13 +73,12 @@ public class Dice : MonoBehaviour
         float randomVariance = Random.Range(0.25f, 1f);
         rb.AddForce(throwDirection * (throwForce * randomVariance), ForceMode.Impulse);
         
-
-        DelayResult();
+        StartCoroutine(DelayResult());
     }
 
-    private async void DelayResult()
+    private IEnumerator DelayResult()
     {
-        await Task.Delay(1000);
+        yield return new WaitForSeconds(1);
         _delayFinished = true;
     }
 }
