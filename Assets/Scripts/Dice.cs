@@ -1,8 +1,6 @@
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Scripting.APIUpdating;
 using Random = UnityEngine.Random;
 
 // force the requirement of a component of type : Rigidbody
@@ -11,6 +9,10 @@ public class Dice : MonoBehaviour
 {
     public Transform[] diceFaces;
     public Rigidbody rb;
+
+    public UI ui;
+
+    // TODO : material management
 
     private int _diceIndex = -1;
 
@@ -22,6 +24,7 @@ public class Dice : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        ui = FindObjectOfType<UI>();
     }
 
     private void Start()
@@ -57,7 +60,8 @@ public class Dice : MonoBehaviour
             }
         }
 
-        Debug.Log($"Dice result {topFace + 1}");
+
+        ui.SetDiceValue(_diceIndex, topFace + 1);
 
         OnDiceResult?.Invoke(_diceIndex, topFace + 1);
         return topFace + 1;

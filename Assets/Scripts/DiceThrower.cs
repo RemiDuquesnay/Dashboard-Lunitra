@@ -12,6 +12,11 @@ public class DiceThrower : MonoBehaviour
     public float rollForce = 10f;
     public Vector3 throwDirection;
 
+    public bool Dice100;
+
+    // TODO : material management
+    // the dice must have a list of his materials.
+
     private List<GameObject> _spawnedDice = new List<GameObject>();
 
     public void Awake()
