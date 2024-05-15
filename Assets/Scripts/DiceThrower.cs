@@ -1,18 +1,23 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class DiceThrower : MonoBehaviour
 {
+    [Header("Dice Prefabs")]
+    [SerializeField] private Dice d4;
+    [SerializeField] private Dice d6;
+    [SerializeField] private Dice d8;
+    [SerializeField] private Dice d10;
+    [SerializeField] private Dice d12;
+    [SerializeField] private Dice d20;
+
+    [Header("Settings")]
     public Dice diceToThrow;
     public int amountOfDice = 2;
     public float throwForce = 10f;
     public float rollForce = 10f;
     public Vector3 throwDirection;
-
-    public bool Dice100;
 
     // TODO : material management
     // the dice must have a list of his materials.
@@ -28,6 +33,31 @@ public class DiceThrower : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) RollDice();
     }
 
+    public void SetDiceAndAmount(int selectedDice, int amount)
+    {
+        switch(selectedDice)
+        {
+            case 0:
+                diceToThrow = d4;
+                break;
+            case 1:
+                diceToThrow = d6;
+                break;
+            case 2:
+                diceToThrow = d8;
+                break;
+            case 3:
+                diceToThrow = d10;
+                break;
+            case 4:
+                diceToThrow = d12;
+                break;
+            case 5:
+                diceToThrow = d20;
+                break;
+        }
+        amountOfDice = amount;
+    }
     private async void RollDice()
     {
         if (diceToThrow == null) return;

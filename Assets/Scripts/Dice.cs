@@ -49,8 +49,8 @@ public class Dice : MonoBehaviour
     {
         if (diceFaces == null) return -1;
 
-        var topFace = 0;
-        var lastYPosition = diceFaces[0].position.y;
+        int topFace = 0;
+        float lastYPosition = diceFaces[0].position.y;
 
         for (int i = 0; i < diceFaces.Length; i++)
         {
